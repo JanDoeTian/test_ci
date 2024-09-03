@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'backend/supabase/browserClient';
 
 import { CONFIG } from 'src/config-global';
 
@@ -8,9 +8,4 @@ import { CONFIG } from 'src/config-global';
 
 const isSupabase = CONFIG.auth.method === 'supabase';
 
-const supabaseUrl = CONFIG.supabase.url;
-const supabaseKey = CONFIG.supabase.key;
-
-export const supabase = isSupabase
-  ? createClient(supabaseUrl, supabaseKey)
-  : ({} as SupabaseClient<any, 'public', any>);
+export const supabase = isSupabase ? createClient() : ({} as SupabaseClient<any, 'public', any>);

@@ -23,15 +23,19 @@ import { AppAreaInstalled } from '../app-area-installed';
 import { AppWidgetSummary } from '../app-widget-summary';
 import { AppCurrentDownload } from '../app-current-download';
 import { AppTopInstalledCountries } from '../app-top-installed-countries';
-import { trpc } from 'server/client';
-import { Typography } from '@mui/material';
+import { api } from 'backend/trpc/client';
+import { TextField, Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 export function OverviewAppView() {
   const { user } = useMockedUser();
-  const getUsers = trpc.user.getUsers.useQuery();
-
+  const getUsers = api.user.getUsers.useQuery();
+  const addUser = api.user.addUser.useMutation({
+    onSettled: () => {
+      getUsers.refetch();
+    },
+  });
   const theme = useTheme();
 
   return (
@@ -53,10 +57,25 @@ export function OverviewAppView() {
         <Grid xs={12} md={4}>
           <AppFeatured list={_appFeatured} />
         </Grid>
-        <Grid xs={12} >
-        <Typography>
-          {JSON.stringify(getUsers.data)}
-</Typography>
+        <Grid xs={12}>
+          <Box
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const name = formData.get('name') as string;
+              const race = formData.get('race') as string;
+              addUser.mutate({ name, race });
+            }}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          >
+            <TextField name="name" label="Name" variant="outlined" fullWidth required />
+            <TextField name="race" label="Race" variant="outlined" fullWidth required />
+            <Button type="submit" variant="contained" color="primary">
+              Add User
+            </Button>
+          </Box>
+          <Typography>{JSON.stringify(getUsers.data)}</Typography>
         </Grid>
 
         <Grid xs={12} md={4}>

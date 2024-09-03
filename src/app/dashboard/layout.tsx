@@ -2,7 +2,7 @@ import { CONFIG } from 'src/config-global';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { AuthGuard } from 'src/auth/guard';
-import { TRPCProvider } from 'server/client';
+import { TRPCProvider } from 'backend/trpc/TRPCProvider';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -17,9 +17,8 @@ export default function Layout({ children }: Props) {
   return (
     <AuthGuard>
       <TRPCProvider>
-      <DashboardLayout>{children}</DashboardLayout>
+        <DashboardLayout>{children}</DashboardLayout>
       </TRPCProvider>
-
     </AuthGuard>
   );
 }

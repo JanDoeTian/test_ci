@@ -10,7 +10,6 @@ export const commonRouter = router({
       const supabase = opts.ctx.supabase;
       const user = (await supabase.auth.getUser()).data.user;
       const { name, file } = opts.input;
-
       const { data, error } = await supabase.storage
         .from('app')
         .upload(`${user?.id}/${name}`, file);

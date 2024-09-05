@@ -25,6 +25,7 @@ import { AppCurrentDownload } from '../app-current-download';
 import { AppTopInstalledCountries } from '../app-top-installed-countries';
 import { api } from 'backend/trpc/client';
 import { TextField, Typography } from '@mui/material';
+import { toast } from 'src/components/snackbar';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,27 @@ export function OverviewAppView() {
       getUsers.refetch();
     },
   });
+
+  const uploadFile = api.common.upload.useMutation({
+    onSuccess: (data) => {
+      toast.success('File uploaded successfully');
+    },
+    onError: (error) => {
+      toast.error(`Error uploading file: ${error.message}`);
+    },
+  });
+
+  const handleFileUpload = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const name = formData.get('name') as string;
+
+    const file = formData.get('file') as File;
+    uploadFile.mutate({ name, file });
+  };
+
   const theme = useTheme();
 
   return (
@@ -76,6 +98,26 @@ export function OverviewAppView() {
             </Button>
           </Box>
           <Typography>{JSON.stringify(getUsers.data)}</Typography>
+
+          <Box
+            component="form"
+            onSubmit={handleFileUpload}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}
+          >
+            <TextField name="name" label="File Name" variant="outlined" fullWidth required />
+            <TextField
+              name="file"
+              type="file"
+              variant="outlined"
+              fullWidth
+              required
+              InputLabelProps={{ shrink: true }}
+            />
+
+            <Button type="submit" variant="contained" color="primary">
+              Upload File
+            </Button>
+          </Box>
         </Grid>
 
         <Grid xs={12} md={4}>

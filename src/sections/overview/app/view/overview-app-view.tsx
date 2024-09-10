@@ -82,7 +82,6 @@ export function OverviewAppView() {
         <Grid xs={12} md={8}>
           <AppJobApplication
             title="Applications"
-            tableData={_applicationStatus}
             headLabel={[
               { id: 'company', label: 'Company' },
               { id: 'title', label: 'Title' },

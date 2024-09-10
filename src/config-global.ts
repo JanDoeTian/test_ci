@@ -53,7 +53,7 @@ export const CONFIG: ConfigValue = {
   auth: {
     method: 'supabase',
     skip: false,
-    redirectPath: paths.auth.supabase.postVerify,
+    redirectPath: paths.dashboard.root,
   },
   /**
    * Mapbox

@@ -26,23 +26,4 @@ export const authRouter = router({
     return { id, email };
     }),
 
-  getFiles: protectedProcedure.query(async (opts) => {
-    const supabase = opts.ctx.supabase;
-    const user = (await supabase.auth.getUser()).data.user;
-
-    const { data, error } = await supabase.storage
-      .from('app')
-      .list(user?.id);
-
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    const parsedData = data?.map(file => ({
-      ...file,
-      updated_at: file.updated_at.split('T')[0], // Extract only the date part
-    }));
-
-    return parsedData;
-  }),
 });

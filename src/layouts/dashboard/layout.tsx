@@ -86,6 +86,12 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
               notifications: _notifications,
             }}
             slotsDisplay={{
+              searchbar: false,
+              dashboard: false,
+              notifications: false,
+              workspaces: false,
+              contacts: false,
+
               signIn: false,
               purchase: false,
               helpLink: false,

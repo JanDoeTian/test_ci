@@ -43,7 +43,7 @@ export const CONFIG: ConfigValue = {
     serverUrl: process.env.NEXT_PUBLIC_SERVER_URL ?? '',
     assetURL: process.env.NEXT_PUBLIC_ASSET_URL ?? '',
     basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? '',
-    version: packageJson.version,
+    version: '1.0.1.beta',
   },
   isStaticExport: JSON.parse(`${process.env.BUILD_STATIC_EXPORT}`),
   /**
@@ -53,7 +53,7 @@ export const CONFIG: ConfigValue = {
   auth: {
     method: 'supabase',
     skip: false,
-    redirectPath: paths.dashboard.root,
+    redirectPath: paths.auth.supabase.postVerify,
   },
   /**
    * Mapbox

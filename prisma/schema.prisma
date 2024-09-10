@@ -16,11 +16,48 @@ datasource db {
 
 model User {
   id String @id @default(cuid())
-  name String
-  race String
+  email String
+  onboarded Boolean @default(false)
+  userUploads UserUpload[]
+  userStats UserStat[]
+  userApplications UserApplication[]
 }
 
 model Test {
   id String @id @default(cuid())
   name String
+}
+
+model UserUpload {
+  id String @id @default(cuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  fileName String
+  fileId String
+  fileUrl String
+  updatedAt DateTime @default(now())
+}
+
+enum ApplicationStatus {
+  new
+  applied
+}
+
+model UserApplication {
+  id String @id @default(cuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  jobTitle String
+  jobCompany String
+  jobLocation String
+  jobUrl String
+  applicationStatus ApplicationStatus @default(new)
+  applicationDate DateTime
+}
+
+model UserStat{
+  id String @id @default(cuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  applicationSubmittedCount Int
 }

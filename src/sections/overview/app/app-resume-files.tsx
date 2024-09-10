@@ -28,8 +28,8 @@ import { toast } from 'src/components/snackbar';
 
 type tableData = {
   id: string;
-  name: string;
-  updated_at: string;
+  fileName: string;
+  updatedAt: string;
 }[];
 type Props = CardProps & {
   title?: string;
@@ -38,11 +38,26 @@ type Props = CardProps & {
 };
 
 export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props) {
-  const { data: tableData, isLoading } = api.user.getFiles.useQuery();
+  const { data: tableData, refetch } = api.user.getFiles.useQuery();
+
+  const deleteFile = api.user.deleteFile.useMutation({
+    onSuccess: () => {
+      toast.success('File deleted successfully');
+      refetch();
+    },
+    onError: (error) => {
+      toast.error(`Error deleting file: ${error.message}`);
+    },
+  });
+
+  const handleDeleteFile = (id: string) => {
+    deleteFile.mutate({ id });
+  };
 
   const uploadFile = api.user.addFile.useMutation({
     onSuccess: (data) => {
       toast.success('File uploaded successfully');
+      refetch();
     },
     onError: (error) => {
       toast.error(`Error uploading file: ${error.message}`);
@@ -57,8 +72,20 @@ export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props)
       const file = input.files[0];
       const name = file.name;
 
+      // Check file type and size
+      if (file.type !== 'application/pdf') {
+        toast.error('Only PDF files are allowed');
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB in bytes
+        toast.error('File size must be below 5MB');
+        return;
+      }
+
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         const base64String = reader.result as String;
         const toUpload = base64String.split(',')[1];
         uploadFile.mutate({ name, file: toUpload });
@@ -67,7 +94,6 @@ export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props)
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
   return (
     <Card {...other}>
       <CardHeader
@@ -77,22 +103,26 @@ export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props)
         action={
           <Button variant="contained" component="label">
             Upload
-            <input type="file" hidden onChange={handleFileUpload} />
+            <input type="file" accept="application/pdf" hidden onChange={handleFileUpload} />
           </Button>
         }
       />
 
       <Scrollbar sx={{ minHeight: 402 }}>
-        <Table sx={{ minWidth: 680 }}>
+        <Table sx={{ minWidth: 300 }}>
           <TableHeadCustom headLabel={headLabel} />
 
-          <TableBody>{tableData?.map((row) => <RowItem key={row.id} row={row} />)}</TableBody>
+          <TableBody>
+            {tableData?.map((row) => (
+              <RowItem key={row.id} row={row} deleteFile={handleDeleteFile} />
+            ))}
+          </TableBody>
         </Table>
       </Scrollbar>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
-      <Box sx={{ p: 2, textAlign: 'right' }}>
+      {/* <Box sx={{ p: 2, textAlign: 'right' }}>
         <Button
           size="small"
           color="inherit"
@@ -100,7 +130,7 @@ export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props)
         >
           View all
         </Button>
-      </Box>
+      </Box> */}
     </Card>
   );
 }
@@ -109,9 +139,10 @@ export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props)
 
 type RowItemProps = {
   row: tableData[number];
+  deleteFile: (id: string) => void;
 };
 
-function RowItem({ row }: RowItemProps) {
+function RowItem({ row, deleteFile }: RowItemProps) {
   const popover = usePopover();
 
   const handleDownload = () => {
@@ -131,6 +162,7 @@ function RowItem({ row }: RowItemProps) {
 
   const handleDelete = () => {
     popover.onClose();
+    deleteFile(row.id);
     console.info('DELETE', row.id);
   };
 
@@ -140,11 +172,11 @@ function RowItem({ row }: RowItemProps) {
         <TableCell>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Iconify icon="mdi:file-pdf-box" width={18} sx={{ mr: 1 }} />
-            {row.name}
+            {row.fileName}
           </Box>
         </TableCell>
 
-        <TableCell>{row.updated_at}</TableCell>
+        <TableCell>{row.updatedAt}</TableCell>
 
         <TableCell align="right" sx={{ pr: 1 }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>

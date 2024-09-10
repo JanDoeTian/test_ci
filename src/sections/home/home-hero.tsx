@@ -73,10 +73,10 @@ export function HomeHero({ sx, ...other }: StackProps) {
           [theme.breakpoints.up(lgKey)]: { fontSize: 72, lineHeight: '90px' },
         }}
       >
-        <Box component="span" sx={{ width: 1, opacity: 0.24 }}>
-          Boost your building
+        <Box component="span" sx={{ width: 1, opacity: 0.38 }}>
+          Automate your job application
         </Box>
-        process with
+        with
         <Box
           component={m.span}
           animate={{ backgroundPosition: '200% center' }}
@@ -94,7 +94,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
             ml: { xs: 0.75, md: 1, xl: 1.5 },
           }}
         >
-          Minimal
+          AutoCV Pro
         </Box>
       </Box>
     </MInview>
@@ -110,7 +110,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
           [theme.breakpoints.up(lgKey)]: { fontSize: 20, lineHeight: '36px' },
         }}
       >
-        {`The starting point for your next project is based on MUI. \nEasy customization helps you build apps faster and better.`}
+        {`Upload your resume and AutoCV Pro will automatically apply to jobs for you.`}
       </Typography>
     </MInview>
   );
@@ -134,7 +134,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
             />
           ))}
         </AvatarGroup>
-        160+ Happy customers
+        160+ Offers landed
       </Box>
     </MInview>
   );
@@ -152,7 +152,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
             startIcon={<Iconify width={24} icon="iconoir:flash" />}
           >
             <span>
-              Live preview
+              Join Free Beta
               <Box
                 component="small"
                 sx={{
@@ -168,7 +168,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
             </span>
           </Button>
 
-          <Link
+          {/* <Link
             color="inherit"
             variant="body2"
             target="_blank"
@@ -179,11 +179,11 @@ export function HomeHero({ sx, ...other }: StackProps) {
           >
             Get free version
             <Iconify width={16} icon="eva:external-link-fill" />
-          </Link>
+          </Link> */}
         </Stack>
       </MInview>
 
-      <MInview>
+      {/* <MInview>
         <Button
           color="inherit"
           size="large"
@@ -196,7 +196,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
         >
           Figma preview
         </Button>
-      </MInview>
+      </MInview> */}
     </Box>
   );
 
@@ -209,7 +209,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
       </MInview>
 
       <Stack spacing={2.5} direction="row">
-        {['js', 'ts', 'nextjs', 'vite', 'figma'].map((platform) => (
+        {['indeed', 'linkedin', 'zip'].map((platform) => (
           <MInview key={platform}>
             {platform === 'nextjs' ? (
               <SvgColor

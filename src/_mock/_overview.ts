@@ -56,6 +56,24 @@ export const _appInvoices = [...Array(5)].map((_, index) => {
   };
 });
 
+export const _applicationStatus =[...Array(5)].map((_, index) => {
+  const category = ['Android', 'Mac', 'Windows', 'Android', 'Mac'][index];
+
+  const status = ['new', 'new', 'new', 'applied', 'applied'][index];
+
+  const title = ['C++ Software Developer', 'Python Developer', 'Quant Developer', 'Data Scientist', 'C++ Software Developer'][index];
+  const company = ['Google', 'Apple', 'Microsoft', 'Amazon', 'Facebook'][index];
+  const date = ['2024-09-08', '2024-09-02', '2024-09-03', '2024-09-05', '2024-09-10'][index];
+
+  return {
+    id: _mock.id(index),
+    company,
+    title,
+    status,
+    date
+  };
+});
+
 export const _appFeatured = [...Array(3)].map((_, index) => ({
   id: _mock.id(index + 3),
   title: _mock.postTitle(index + 3),

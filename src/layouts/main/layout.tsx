@@ -56,6 +56,8 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
             onOpenNav={mobileNavOpen.onTrue}
             slotsDisplay={{
               account: false,
+              purchase: false,
+              signIn: false,
               helpLink: false,
               contacts: false,
               searchbar: false,

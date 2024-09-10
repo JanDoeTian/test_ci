@@ -40,7 +40,7 @@ export function HomeAdvertisement({ sx, ...other }: StackProps) {
         sx={{ m: 0, color: 'common.white', typography: { xs: 'h2', md: 'h1' } }}
       >
         Get started with
-        <br /> Minimal kit
+        <br /> AutoCV Pro
         <Box
           component="span"
           sx={{
@@ -67,13 +67,13 @@ export function HomeAdvertisement({ sx, ...other }: StackProps) {
             variant="contained"
             target="_blank"
             rel="noopener"
-            href={paths.minimalStore}
+            href={paths.dashboard.root}
           >
-            Purchase now
+            Join beta
           </Button>
         </m.div>
 
-        <m.div variants={varFade({ distance: 24 }).inRight}>
+        {/* <m.div variants={varFade({ distance: 24 }).inRight}>
           <Button
             color="inherit"
             size="large"
@@ -90,7 +90,7 @@ export function HomeAdvertisement({ sx, ...other }: StackProps) {
           >
             Get free version
           </Button>
-        </m.div>
+        </m.div> */}
       </Stack>
     </Stack>
   );

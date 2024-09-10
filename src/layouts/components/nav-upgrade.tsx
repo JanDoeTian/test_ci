@@ -17,6 +17,7 @@ import { varAlpha, bgGradient } from 'src/theme/styles';
 import { Label } from 'src/components/label';
 
 import { useMockedUser } from 'src/auth/hooks';
+import { supabase } from 'src/lib/supabase';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +66,7 @@ export function NavUpgrade({ sx, ...other }: StackProps) {
           </Typography>
         </Stack>
 
-        <Button variant="contained" href={paths.minimalStore} target="_blank" rel="noopener">
+        <Button variant="contained" href={paths.dashboard.root} target="_blank" rel="noopener">
           Upgrade to Pro
         </Button>
       </Stack>

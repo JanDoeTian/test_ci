@@ -75,6 +75,7 @@ export type HeaderBaseProps = HeaderSectionProps & {
   };
   slotsDisplay?: {
     signIn?: boolean;
+    dashboard?: boolean;
     account?: boolean;
     helpLink?: boolean;
     settings?: boolean;
@@ -101,6 +102,7 @@ export function HeaderBase({
     helpLink = true,
     settings = true,
     purchase = true,
+    dashboard = true,
     contacts = true,
     searchbar = true,
     workspaces = true,
@@ -206,6 +208,22 @@ export function HeaderBase({
                   }}
                 >
                   Purchase
+                </Button>
+              )}
+
+              {dashboard && (
+                <Button
+                  data-slot="dashboard"
+                  variant="contained"
+                  rel="noopener"
+                  target="_blank"
+                  href={paths.dashboard.root}
+                  sx={{
+                    display: 'none',
+                    [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
+                  }}
+                >
+                  Dashboard
                 </Button>
               )}
             </Box>

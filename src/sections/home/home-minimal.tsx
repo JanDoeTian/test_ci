@@ -33,9 +33,9 @@ export function HomeMinimal({ sx, ...other }: StackProps) {
   const renderDescription = (
     <>
       <SectionTitle
-        caption="Visualizing Success"
+        caption="Automating Success"
         title="What's in"
-        txtGradient="Minimal?"
+        txtGradient="AutoCV Pro?"
         sx={{ mb: { xs: 5, md: 8 }, textAlign: { xs: 'center', md: 'left' } }}
       />
 
@@ -93,7 +93,7 @@ export function HomeMinimal({ sx, ...other }: StackProps) {
         <Box
           component="img"
           alt="Home Chart"
-          src={`${CONFIG.site.basePath}/assets/images/home/home-chart.webp`}
+          src={`${CONFIG.site.basePath}/assets/images/home/dashboard-screenshot.png`}
           sx={{ width: 720 }}
         />
       </Box>
@@ -137,17 +137,17 @@ export function HomeMinimal({ sx, ...other }: StackProps) {
 const ITEMS = [
   {
     icon: `${CONFIG.site.basePath}/assets/icons/home/ic-make-brand.svg`,
-    title: 'Branding',
-    description: 'Consistent design makes it easy to brand your own.',
+    title: 'AI-powered resume matching',
+    description: 'Only apply to jobs that match your resume.',
   },
   {
     icon: `${CONFIG.site.basePath}/assets/icons/home/ic-design.svg`,
-    title: 'UI & UX design',
-    description: 'The kit is built on the principles of the atomic design system.',
+    title: 'Automate applications',
+    description: 'Hands-free job applications.',
   },
   {
     icon: `${CONFIG.site.basePath}/assets/icons/home/ic-development.svg`,
-    title: 'Development',
-    description: 'Easy to customize and extend, saving you time and money.',
+    title: 'Track interviews',
+    description: 'Track the status of your applications.',
   },
 ];

@@ -3,6 +3,8 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { AuthGuard } from 'src/auth/guard';
 import { TRPCProvider } from 'backend/trpc/TRPCProvider';
+import { Suspense } from 'react';
+import Loading from './loading';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -17,7 +19,9 @@ export default function Layout({ children }: Props) {
   return (
     <AuthGuard>
       <TRPCProvider>
-        <DashboardLayout>{children}</DashboardLayout>
+        <Suspense fallback={<Loading />}>
+          <DashboardLayout>{children}</DashboardLayout>
+        </Suspense>
       </TRPCProvider>
     </AuthGuard>
   );

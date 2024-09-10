@@ -28,29 +28,68 @@ type Props = CardProps & {
   title?: string;
   subheader?: string;
   headLabel: TableHeadCustomProps['headLabel'];
-  tableData: {
-    id: string;
-    company: string;
-    status: string;
-    category: string;
-  }[];
 };
+
+type tableData = {
+  id: string;
+  userId: string;
+  jobTitle: string;
+  jobCompany: string;
+  jobLocation: string;
+  jobUrl: string;
+  applicationStatus: string;
+  applicationDate: string;
+}[];
 
 import { useState } from 'react';
 import TablePagination from '@mui/material/TablePagination';
+import { api } from 'backend/trpc/client';
+import Typography from '@mui/material/Typography';
 
-export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other }: Props) {
+export function AppJobApplication({ title, subheader, headLabel, ...other }: Props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const {
+    data: tableData,
+    isLoading,
+    refetch,
+  } = api.user.getUserApplications.useQuery({
+    page,
+    pageSize: rowsPerPage,
+  });
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    refetch();
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    refetch();
   };
+
+  if (!tableData || tableData.length === 0) {
+    return (
+      <Card {...other}>
+        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+        <Box sx={{ p: 2, textAlign: 'center' }}>
+          <Label variant="soft" color="error">
+            <Typography variant="body2" color="textSecondary">
+              <Iconify
+                icon="eva:clock-outline"
+                width={20}
+                height={20}
+                style={{ verticalAlign: 'middle', marginRight: 4 }}
+              />
+              It takes around 24 hours for system to process your resume
+            </Typography>
+          </Label>
+        </Box>
+      </Card>
+    );
+  }
 
   return (
     <Card {...other}>
@@ -61,9 +100,9 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
           <TableHeadCustom headLabel={headLabel} />
 
           <TableBody>
-            {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <RowItem key={row.id} row={row} />
-            ))}
+            {tableData
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => <RowItem key={row.id} row={row} />)}
           </TableBody>
         </Table>
       </Scrollbar>
@@ -71,7 +110,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={tableData.length}
+        count={tableData?.length ?? 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -96,7 +135,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
 // ----------------------------------------------------------------------
 
 type RowItemProps = {
-  row: Props['tableData'][number];
+  row: tableData[number];
 };
 
 function RowItem({ row }: RowItemProps) {
@@ -125,23 +164,21 @@ function RowItem({ row }: RowItemProps) {
   return (
     <>
       <TableRow>
-        <TableCell>{row.company}</TableCell>
-
-        <TableCell>{row.category}</TableCell>
-
+        <TableCell>{row.jobCompany}</TableCell>
+        <TableCell>{row.jobTitle}</TableCell>
         <TableCell>
           <Label
             variant="soft"
             color={
-              (row.status === 'applied' && 'warning') ||
-              (row.status === 'out of date' && 'error') ||
+              (row.applicationStatus === 'applied' && 'warning') ||
+              (row.applicationStatus === 'out of date' && 'error') ||
               'success'
             }
           >
-            {row.status}
+            {row.applicationStatus}
           </Label>
         </TableCell>
-
+        <TableCell>{row.applicationDate}</TableCell>
         <TableCell align="right" sx={{ pr: 1 }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />

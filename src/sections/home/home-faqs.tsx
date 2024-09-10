@@ -25,103 +25,90 @@ import { FloatLine, FloatPlusIcon, FloatTriangleDownIcon } from './components/sv
 
 const FAQs = [
   {
-    question: 'How can I get the update?',
-    answer: (
-      <Typography>
-        You will get 12 months of free
-        <Link
-          href="https://support.mui.com/hc/en-us/articles/360008775240-How-do-I-get-access-to-an-item-I-purchased"
-          target="_blank"
-          rel="noopener"
-          sx={{ mx: 0.5 }}
-        >
-          updates
-        </Link>
-        with the purchase. Please renew your license to get updates after that.
-      </Typography>
-    ),
+    question: 'Is the beta version free?',
+    answer: <Typography>It's completely free, enjoy!</Typography>,
   },
-  {
-    question: 'Which license is right for you?',
-    answer: (
-      <Box component="ul" sx={{ pl: 3, listStyleType: 'disc' }}>
-        <li> All licenses do not apply to open source.</li>
-        <li> One licenses / one end product (3 licenses / 3 products...).</li>
-        <li>
-          <strong>Standard / Plus</strong> license used in free products (Internal management...).
-        </li>
-        <li>
-          <strong>Extended</strong> license used in charge products, collect fees from users
-          (SAAS...).
-        </li>
-        <li>
-          Learn more about the
-          <Link
-            href="https://docs.minimals.cc/package/"
-            target="_blank"
-            rel="noopener"
-            sx={{ mx: 0.5 }}
-          >
-            package & license
-          </Link>
-        </li>
-      </Box>
-    ),
-  },
-  {
-    question: 'How long is my license valid for?',
-    answer: (
-      <Box component="ul" sx={{ pl: 3, listStyleType: 'disc' }}>
-        <li> The license is lifetime.</li>
-        <li> You get 12 months of free updates.</li>
-      </Box>
-    ),
-  },
-  {
-    question: 'Which platforms will the template support?',
-    answer: (
-      <Typography>
-        {`The components in MUI are designed to work in the latest, stable releases of all major browsers, including Chrome, Firefox, Safari, and Edge. We don't support Internet Explorer 11. `}
-        Learn more about the
-        <Link
-          href="https://mui.com/material-ui/getting-started/supported-platforms/"
-          target="_blank"
-          rel="noopener"
-          sx={{ mx: 0.5 }}
-        >
-          supported platforms
-        </Link>
-      </Typography>
-    ),
-  },
-  {
-    question: 'For what kind of projects is the Standard license intended?',
-    answer: (
-      <Typography>
-        The Standard license is designed for internal applications in which staff will access the
-        application. An example could be the back-office dashboard of a public-facing e-commerce
-        website in which staff would sign in and manage inventory, customers, etc.
-      </Typography>
-    ),
-  },
-  {
-    question: 'Do you have a free demo to review the code before purchasing?',
-    answer: (
-      <Typography>
-        Yes, you can check out our
-        <Link
-          href="https://mui.com/store/items/minimal-dashboard-free/"
-          target="_blank"
-          rel="noopener"
-          sx={{ mx: 0.5 }}
-        >
-          open source
-        </Link>
-        dashboard template which should give you an overview of the code quality and folder
-        structure. Keep in mind that some aspects may differ from this Paid version.
-      </Typography>
-    ),
-  },
+  // {
+  //   question: 'Which license is right for you?',
+  //   answer: (
+  //     <Box component="ul" sx={{ pl: 3, listStyleType: 'disc' }}>
+  //       <li> All licenses do not apply to open source.</li>
+  //       <li> One licenses / one end product (3 licenses / 3 products...).</li>
+  //       <li>
+  //         <strong>Standard / Plus</strong> license used in free products (Internal management...).
+  //       </li>
+  //       <li>
+  //         <strong>Extended</strong> license used in charge products, collect fees from users
+  //         (SAAS...).
+  //       </li>
+  //       <li>
+  //         Learn more about the
+  //         <Link
+  //           href="https://docs.minimals.cc/package/"
+  //           target="_blank"
+  //           rel="noopener"
+  //           sx={{ mx: 0.5 }}
+  //         >
+  //           package & license
+  //         </Link>
+  //       </li>
+  //     </Box>
+  //   ),
+  // },
+  // {
+  //   question: 'How long is my license valid for?',
+  //   answer: (
+  //     <Box component="ul" sx={{ pl: 3, listStyleType: 'disc' }}>
+  //       <li> The license is lifetime.</li>
+  //       <li> You get 12 months of free updates.</li>
+  //     </Box>
+  //   ),
+  // },
+  // {
+  //   question: 'Which platforms will the template support?',
+  //   answer: (
+  //     <Typography>
+  //       {`The components in MUI are designed to work in the latest, stable releases of all major browsers, including Chrome, Firefox, Safari, and Edge. We don't support Internet Explorer 11. `}
+  //       Learn more about the
+  //       <Link
+  //         href="https://mui.com/material-ui/getting-started/supported-platforms/"
+  //         target="_blank"
+  //         rel="noopener"
+  //         sx={{ mx: 0.5 }}
+  //       >
+  //         supported platforms
+  //       </Link>
+  //     </Typography>
+  //   ),
+  // },
+  // {
+  //   question: 'For what kind of projects is the Standard license intended?',
+  //   answer: (
+  //     <Typography>
+  //       The Standard license is designed for internal applications in which staff will access the
+  //       application. An example could be the back-office dashboard of a public-facing e-commerce
+  //       website in which staff would sign in and manage inventory, customers, etc.
+  //     </Typography>
+  //   ),
+  // },
+  // {
+  //   question: 'Do you have a free demo to review the code before purchasing?',
+  //   answer: (
+  //     <Typography>
+  //       Yes, you can check out our
+  //       <Link
+  //         href="https://mui.com/store/items/minimal-dashboard-free/"
+  //         target="_blank"
+  //         rel="noopener"
+  //         sx={{ mx: 0.5 }}
+  //       >
+  //         open source
+  //       </Link>
+  //       dashboard template which should give you an overview of the code quality and folder
+  //       structure. Keep in mind that some aspects may differ from this Paid version.
+  //     </Typography>
+  //   ),
+  // },
 ];
 
 // ----------------------------------------------------------------------

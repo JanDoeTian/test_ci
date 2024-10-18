@@ -1,5 +1,96 @@
-insert into auth.users (instance_id, id, aud, role, email, encrypted_password, raw_app_meta_data, raw_user_meta_data, email_confirmed_at, created_at)
-  values ('00000000-0000-0000-0000-000000000000', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2', 'authenticated', 'authenticated', 'test@email.com', '$2a$10$6gPtvpqCAiwavx1EOnjIgOykKMgzRdiBuejUQGIRRjvUi/ZgMh.9C', '{"provider":"email","providers":["email"]}', '{}', timezone('utc'::text, now()), timezone('utc'::text, now()));
+INSERT INTO
+  auth.users (
+    id,
+    instance_id,
+    ROLE,
+    aud,
+    email,
+    raw_app_meta_data,
+    raw_user_meta_data,
+    is_super_admin,
+    encrypted_password,
+    created_at,
+    updated_at,
+    last_sign_in_at,
+    email_confirmed_at,
+    confirmation_sent_at,
+    confirmation_token,
+    recovery_token,
+    email_change_token_new,
+    email_change
+  )
+VALUES
+  (
+    gen_random_uuid(),
+    '00000000-0000-0000-0000-000000000000',
+    'authenticated',
+    'authenticated',
+    'fake_user@adgent.com',
+    '{"provider":"email","providers":["email"]}',
+    '{}',
+    FALSE,
+    crypt('Pa55word!', gen_salt('bf')),
+    NOW(),
+    NOW(),
+    NOW(),
+    NOW(),
+    NOW(),
+    '',
+    '',
+    '',
+    ''
+  );
 
-insert into auth.identities (id, user_id, provider_id,identity_data, provider, created_at)
-  values ('185f2f83-d63a-4c9b-b4a0-7e4a885799e2', '185f2f83-d63a-4c9b-b4a0-7e4a885799e2','185f2f83-d63a-4c9b-b4a0-7e4a885799e2',	'{"sub": "185f2f83-d63a-4c9b-b4a0-7e4a885799e2"}', 'email', timezone('utc'::text, now()));
+INSERT INTO
+  auth.identities (
+    id,
+    provider,
+    provider_id,
+    user_id,
+    identity_data,
+    last_sign_in_at,
+    created_at,
+    updated_at
+  )
+VALUES
+  (
+    (
+      SELECT
+        id
+      FROM
+        auth.users
+      WHERE
+        email = 'fake_user@adgent.com'
+    ),
+    'email',
+    (
+      SELECT
+        id
+      FROM
+        auth.users
+      WHERE
+        email = 'fake_user@adgent.com'
+    ),
+        (
+      SELECT
+        id
+      FROM
+        auth.users
+      WHERE
+        email = 'fake_user@adgent.com'
+    ),
+    json_build_object(
+      'sub',
+      (
+        SELECT
+          id
+        FROM
+          auth.users
+        WHERE
+          email = 'fake_user@adgent.com'
+      )
+    ),
+    NOW(),
+    NOW(),
+    NOW()
+  );

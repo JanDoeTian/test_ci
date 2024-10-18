@@ -13,8 +13,8 @@ import { varAlpha, stylesMode } from '../../styles';
  * Icons
  * https://icon-sets.iconify.design/solar/close-circle-bold
  */
-export const ChipDeleteIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function ChipDeleteIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -22,7 +22,7 @@ export const ChipDeleteIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 // ----------------------------------------------------------------------
 

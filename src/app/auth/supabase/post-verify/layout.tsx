@@ -1,4 +1,5 @@
 import { TRPCProvider } from 'backend/trpc/TRPCProvider';
+
 import { AuthSplitLayout } from 'src/layouts/auth-split';
 
 // ----------------------------------------------------------------------

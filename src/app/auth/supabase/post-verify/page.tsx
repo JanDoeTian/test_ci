@@ -1,14 +1,15 @@
 'use client';
-import { CONFIG } from 'src/config-global';
+
 
 import { SupabaseVerifyView } from 'src/sections/auth/supabase';
 
 // ----------------------------------------------------------------------
 
-import { api } from 'backend/trpc/client';
 import { useEffect } from 'react';
-import { useRouter } from 'src/routes/hooks';
+import { api } from 'backend/trpc/client';
+
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 export default function Page() {
   const postVerify = api.auth.postVerify.useMutation();
@@ -19,7 +20,7 @@ export default function Page() {
       router.replace(paths.dashboard.root);
     };
     mutatePostVerify();
-  }, []);
+  });
 
   return <SupabaseVerifyView />;
 }

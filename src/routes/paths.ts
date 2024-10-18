@@ -95,6 +95,10 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
+    campaigns: {
+      root: `${ROOTS.DASHBOARD}/campaigns`,
+      create: `${ROOTS.DASHBOARD}/campaigns/create`,
+    },
     mail: `${ROOTS.DASHBOARD}/mail`,
     chat: `${ROOTS.DASHBOARD}/chat`,
     blank: `${ROOTS.DASHBOARD}/blank`,

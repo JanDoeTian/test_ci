@@ -2,8 +2,6 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config-global';
 
-import { Label } from 'src/components/label';
-import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -13,6 +11,7 @@ const icon = (name: string) => (
 );
 
 const ICONS = {
+  campaigns: icon('ic-analytics'),
   job: icon('ic-job'),
   blog: icon('ic-blog'),
   chat: icon('ic-chat'),
@@ -51,6 +50,7 @@ export const navData = [
     subheader: 'Overview',
     items: [
       { title: 'App', path: paths.dashboard.root, icon: ICONS.dashboard },
+      { title: 'Campaigns', path: paths.dashboard.campaigns.root, icon: ICONS.campaigns },
       // { title: 'Ecommerce', path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
       // { title: 'Analytics', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
       // { title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },

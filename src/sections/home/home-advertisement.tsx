@@ -13,7 +13,6 @@ import { paths } from 'src/routes/paths';
 import { CONFIG } from 'src/config-global';
 import { varAlpha, textGradient } from 'src/theme/styles';
 
-import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 import { varFade, MotionViewport } from 'src/components/animate';
 

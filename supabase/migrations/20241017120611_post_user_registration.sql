@@ -7,9 +7,12 @@ CREATE OR REPLACE FUNCTION public.handle_new_user()
  SET search_path TO ''
 AS $function$
 begin
-  insert into "public"."User" (id, email)
-  values (new.id, new.email);
-  return new;
+
+    insert into "public"."User" (id, email)
+    VALUES (NEW.id, NEW.email)
+    ON CONFLICT (id) DO NOTHING;  -- Avoid inserting duplicate users
+
+    return new;
 end;
 $function$
 ;

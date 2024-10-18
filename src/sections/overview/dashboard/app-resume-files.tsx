@@ -1,6 +1,8 @@
 import type { CardProps } from '@mui/material/Card';
 import type { TableHeadCustomProps } from 'src/components/table';
 
+import { api } from 'backend/trpc/client';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
@@ -14,108 +16,106 @@ import TableCell from '@mui/material/TableCell';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 
-import { fCurrency } from 'src/utils/format-number';
-
-import { Label } from 'src/components/label';
+import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { TableHeadCustom } from 'src/components/table';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-
 // ----------------------------------------------------------------------
 
+type tableData = {
+  id: string;
+  fileName: string;
+  updatedAt: string;
+}[];
 type Props = CardProps & {
   title?: string;
   subheader?: string;
   headLabel: TableHeadCustomProps['headLabel'];
 };
 
-type tableData = {
-  id: string;
-  userId: string;
-  jobTitle: string;
-  jobCompany: string;
-  jobLocation: string;
-  jobUrl: string;
-  applicationStatus: string;
-  applicationDate: string;
-}[];
+export function AppResumeFiles({ title, subheader, headLabel, ...other }: Props) {
+  const { data: tableData, refetch } = api.user.getFiles.useQuery();
 
-import { useState } from 'react';
-import TablePagination from '@mui/material/TablePagination';
-import { api } from 'backend/trpc/client';
-import Typography from '@mui/material/Typography';
-
-export function AppJobApplication({ title, subheader, headLabel, ...other }: Props) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const {
-    data: tableData,
-    isLoading,
-    refetch,
-  } = api.user.getUserApplications.useQuery({
-    page,
-    pageSize: rowsPerPage,
+  const deleteFile = api.user.deleteFile.useMutation({
+    onSuccess: () => {
+      toast.success('File deleted successfully');
+      refetch();
+    },
+    onError: (error) => {
+      toast.error(`Error deleting file: ${error.message}`);
+    },
   });
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-    refetch();
+  const handleDeleteFile = (id: string) => {
+    deleteFile.mutate({ id });
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-    refetch();
-  };
+  const uploadFile = api.user.addFile.useMutation({
+    onSuccess: (data) => {
+      toast.success('File uploaded successfully');
+      refetch();
+    },
+    onError: (error) => {
+      toast.error(`Error uploading file: ${error.message}`);
+    },
+  });
 
-  if (!tableData || tableData.length === 0) {
-    return (
-      <Card {...other}>
-        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
-        <Box sx={{ p: 2, textAlign: 'center' }}>
-          <Label variant="soft" color="error">
-            <Typography variant="body2" color="textSecondary">
-              <Iconify
-                icon="eva:clock-outline"
-                width={20}
-                height={20}
-                style={{ verticalAlign: 'middle', marginRight: 4 }}
-              />
-              It takes around 24 hours for system to process your resume
-            </Typography>
-          </Label>
-        </Box>
-      </Card>
-    );
-  }
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const input = e.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const {name} = file;
+
+      // Check file type and size
+      if (file.type !== 'application/pdf') {
+        toast.error('Only PDF files are allowed');
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB in bytes
+        toast.error('File size must be below 5MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as String;
+        const toUpload = base64String.split(',')[1];
+        uploadFile.mutate({ name, file: toUpload });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+      <CardHeader
+        title={title}
+        subheader={subheader}
+        sx={{ mb: 3 }}
+        action={
+          <Button variant="contained" component="label">
+            Upload
+            <input type="file" accept="application/pdf" hidden onChange={handleFileUpload} />
+          </Button>
+        }
+      />
 
       <Scrollbar sx={{ minHeight: 402 }}>
-        <Table sx={{ minWidth: 680 }}>
+        <Table sx={{ minWidth: 300 }}>
           <TableHeadCustom headLabel={headLabel} />
 
           <TableBody>
-            {tableData
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => <RowItem key={row.id} row={row} />)}
+            {tableData?.map((row) => (
+              <RowItem key={row.id} row={row} deleteFile={handleDeleteFile} />
+            ))}
           </TableBody>
         </Table>
       </Scrollbar>
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={tableData?.length ?? 0}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -136,9 +136,10 @@ export function AppJobApplication({ title, subheader, headLabel, ...other }: Pro
 
 type RowItemProps = {
   row: tableData[number];
+  deleteFile: (id: string) => void;
 };
 
-function RowItem({ row }: RowItemProps) {
+function RowItem({ row, deleteFile }: RowItemProps) {
   const popover = usePopover();
 
   const handleDownload = () => {
@@ -158,27 +159,22 @@ function RowItem({ row }: RowItemProps) {
 
   const handleDelete = () => {
     popover.onClose();
+    deleteFile(row.id);
     console.info('DELETE', row.id);
   };
 
   return (
     <>
       <TableRow>
-        <TableCell>{row.jobCompany}</TableCell>
-        <TableCell>{row.jobTitle}</TableCell>
         <TableCell>
-          <Label
-            variant="soft"
-            color={
-              (row.applicationStatus === 'applied' && 'warning') ||
-              (row.applicationStatus === 'out of date' && 'error') ||
-              'success'
-            }
-          >
-            {row.applicationStatus}
-          </Label>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Iconify icon="mdi:file-pdf-box" width={18} sx={{ mr: 1 }} />
+            {row.fileName}
+          </Box>
         </TableCell>
-        <TableCell>{row.applicationDate}</TableCell>
+
+        <TableCell>{row.updatedAt}</TableCell>
+
         <TableCell align="right" sx={{ pr: 1 }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />

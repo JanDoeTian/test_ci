@@ -31,6 +31,7 @@ export type CountrySelectProps = AutocompleteBaseProps & {
   placeholder?: string;
   hiddenLabel?: boolean;
   getValue?: 'label' | 'code';
+  countryCodes?: string[];
   helperText?: React.ReactNode;
 };
 
@@ -43,10 +44,16 @@ export function CountrySelect({
   hiddenLabel,
   placeholder,
   getValue = 'label',
+  countryCodes,
   ...other
 }: CountrySelectProps) {
-  const options = countries.map((country) => (getValue === 'label' ? country.label : country.code));
+  const filteredCountries = countryCodes
+    ? countries.filter((country) => countryCodes.includes(country.code))
+    : countries;
 
+  const options = filteredCountries.map((country) =>
+    getValue === 'label' ? country.label : country.code
+  );
   const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: Value) => {
     const country = getCountry(option);
 

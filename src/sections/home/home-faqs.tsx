@@ -3,8 +3,6 @@ import type { StackProps } from '@mui/material/Stack';
 import { useState } from 'react';
 import { m } from 'framer-motion';
 
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -26,7 +24,7 @@ import { FloatLine, FloatPlusIcon, FloatTriangleDownIcon } from './components/sv
 const FAQs = [
   {
     question: 'Is the beta version free?',
-    answer: <Typography>It's completely free, enjoy!</Typography>,
+    answer: <Typography>It&apos;s completely free, enjoy!</Typography>,
   },
   // {
   //   question: 'Which license is right for you?',

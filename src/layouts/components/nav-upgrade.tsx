@@ -17,7 +17,6 @@ import { varAlpha, bgGradient } from 'src/theme/styles';
 import { Label } from 'src/components/label';
 
 import { useMockedUser } from 'src/auth/hooks';
-import { supabase } from 'src/lib/supabase';
 
 // ----------------------------------------------------------------------
 

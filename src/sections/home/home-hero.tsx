@@ -6,7 +6,6 @@ import { useRef, useState } from 'react';
 import { m, useScroll, useSpring, useTransform, useMotionValueEvent } from 'framer-motion';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -110,7 +109,7 @@ export function HomeHero({ sx, ...other }: StackProps) {
           [theme.breakpoints.up(lgKey)]: { fontSize: 20, lineHeight: '36px' },
         }}
       >
-        {`Upload your resume and AutoCV Pro will automatically apply to jobs for you.`}
+        Upload your resume and AutoCV Pro will automatically apply to jobs for you.
       </Typography>
     </MInview>
   );

@@ -13,8 +13,8 @@ import { varAlpha, stylesMode } from '../../styles';
  * Icons
  */
 /* https://icon-sets.iconify.design/solar/info-circle-bold/ */
-const AlertInfoIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+function AlertInfoIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -22,11 +22,11 @@ const AlertInfoIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/solar/check-circle-bold/ */
-const AlertSuccessIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+function AlertSuccessIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -34,11 +34,11 @@ const AlertSuccessIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 /* https:// icon-sets.iconify.design/solar/danger-triangle-bold/ */
-const AlertWarningIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+function AlertWarningIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -46,11 +46,11 @@ const AlertWarningIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/solar/danger-bold/ */
-const AlertErrorIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+function AlertErrorIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -58,7 +58,7 @@ const AlertErrorIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 // ----------------------------------------------------------------------
 

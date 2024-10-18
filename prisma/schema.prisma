@@ -15,49 +15,28 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  email String
-  onboarded Boolean @default(false)
-  userUploads UserUpload[]
-  userStats UserStat[]
-  userApplications UserApplication[]
+  id        String     @id @default(cuid())
+  email     String
+  onboarded Boolean    @default(false)
+  campaigns Campaign[]
 }
 
-model Test {
-  id String @id @default(cuid())
-  name String
+enum CampaignStatus {
+  active
+  paused
+  inactive
 }
 
-model UserUpload {
-  id String @id @default(cuid())
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  fileName String
-  fileId String
-  fileUrl String
-  updatedAt DateTime @default(now())
-}
-
-enum ApplicationStatus {
-  new
-  applied
-}
-
-model UserApplication {
-  id String @id @default(cuid())
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  jobTitle String
-  jobCompany String
-  jobLocation String
-  jobUrl String
-  applicationStatus ApplicationStatus @default(new)
-  applicationDate DateTime
-}
-
-model UserStat{
-  id String @id @default(cuid())
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  applicationSubmittedCount Int
+model Campaign {
+  id          String         @id @default(cuid())
+  name        String
+  link        String
+  description String
+  countries   String[]
+  dailyBudget Int
+  status      CampaignStatus @default(active)
+  user        User           @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }

@@ -15,6 +15,16 @@ type InputProps = {
 };
 
 export const schemaHelper = {
+
+
+  url: (props?: InputProps) =>
+    zod
+      .string()
+      .url({ message: props?.message?.invalid_type_error ?? 'Enter a URL starting with https://' })
+      .refine((url) => url.startsWith('https'), {
+        message: props?.message?.invalid_type_error ?? 'URL must start with https!',
+      }),
+
   /**
    * Phone number
    * defaultValue === null

@@ -13,38 +13,38 @@ import { stylesMode } from '../../styles';
  * Icons
  */
 /* https://icon-sets.iconify.design/eva/chevron-down-fill */
-export const PickerSwitchIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function PickerSwitchIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28"
     />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/eva/arrow-ios-back-fill */
-export const PickerLeftIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function PickerLeftIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64"
     />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/eva/arrow-ios-forward-fill */
-export const PickerRightIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function PickerRightIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       d="M10 19a1 1 0 0 1-.64-.23a1 1 0 0 1-.13-1.41L13.71 12L9.39 6.63a1 1 0 0 1 .15-1.41a1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19"
     />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/solar/calendar-mark-bold-duotone */
-export const PickerCalendarIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function PickerCalendarIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       d="M6.96 2c.418 0 .756.31.756.692V4.09c.67-.012 1.422-.012 2.268-.012h4.032c.846 0 1.597 0 2.268.012V2.692c0-.382.338-.692.756-.692s.756.31.756.692V4.15c1.45.106 2.403.368 3.103 1.008c.7.641.985 1.513 1.101 2.842v1H2V8c.116-1.329.401-2.2 1.101-2.842c.7-.64 1.652-.902 3.103-1.008V2.692c0-.382.339-.692.756-.692"
@@ -56,11 +56,11 @@ export const PickerCalendarIcon = (props: SvgIconProps) => (
     />
     <path fill="currentColor" d="M18 16.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0" />
   </SvgIcon>
-);
+}
 
 /* https://icon-sets.iconify.design/solar/clock-circle-outline */
-export const PickerClockIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
+export function PickerClockIcon(props: SvgIconProps) {
+  return <SvgIcon {...props}>
     <path
       fill="currentColor"
       fillRule="evenodd"
@@ -68,7 +68,7 @@ export const PickerClockIcon = (props: SvgIconProps) => (
       clipRule="evenodd"
     />
   </SvgIcon>
-);
+}
 
 const defaultProps = {
   date: {

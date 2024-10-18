@@ -56,6 +56,35 @@ export const _appInvoices = [...Array(5)].map((_, index) => {
   };
 });
 
+export const _dashboardCampaigns = [...Array(5)].map((_, index) => {
+  const campaignName = `Campaign ${index + 1}`;
+  const date = `2024-09-${index + 1}`;
+  const spending = _mock.number.price(index);
+  const impressions = _mock.number.nativeL(index) * 1000;
+  const clicks = _mock.number.nativeL(index);
+  const ctr = (clicks / impressions) * 100;
+  const cpc = Number((spending / clicks).toFixed(3));
+
+  // Randomly select 'United States', 'United Kingdom', or 'United States, United Kingdom'
+  const countryOptions = ['United States', 'United Kingdom', 'United States, United Kingdom'];
+  const countries = countryOptions[Math.floor(Math.random() * countryOptions.length)];
+
+  const status = ['running', 'paused'][index % 2];
+
+  return {
+    id: _mock.id(index),
+    campaignName,
+    date,
+    spending,
+    impressions,
+    clicks,
+    ctr,
+    cpc,
+    countries,
+    status,
+  };
+});
+
 export const _applicationStatus =[...Array(5)].map((_, index) => {
   const category = ['Android', 'Mac', 'Windows', 'Android', 'Mac'][index];
 

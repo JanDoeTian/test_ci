@@ -1,6 +1,7 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { appRouter } from 'backend/trpc';
 import { createClient } from 'backend/supabase/serverClient';
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+
 const handler = async (req: Request) => {
   const response = await fetchRequestHandler({
     endpoint: '/api/trpc',

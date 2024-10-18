@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
+import { TRPCProvider } from 'backend/trpc/TRPCProvider';
+
 import { CONFIG } from 'src/config-global';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { AuthGuard } from 'src/auth/guard';
-import { TRPCProvider } from 'backend/trpc/TRPCProvider';
-import { Suspense } from 'react';
+
 import Loading from './loading';
 // ----------------------------------------------------------------------
 

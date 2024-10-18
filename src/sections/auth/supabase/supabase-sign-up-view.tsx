@@ -23,7 +23,6 @@ import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
 import { signUp } from 'src/auth/context/supabase';
-import path from 'path';
 
 // ----------------------------------------------------------------------
 

@@ -1,0 +1,10 @@
+# Check for uncommitted database schema changes
+DIFF_OUTPUT=$(supabase db diff)
+
+if [ -n "$DIFF_OUTPUT" ]; then
+  echo "Uncommitted database schema changes detected. Please commit the changes."
+  echo "$DIFF_OUTPUT"
+  exit 1
+else
+  echo "No uncommitted database schema changes detected."
+fi

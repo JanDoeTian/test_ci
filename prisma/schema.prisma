@@ -42,5 +42,6 @@ model Campaign {
 }
 
 model Nasty {
-  id String @id @default(cuid())
+  id   String @id @default(cuid())
+  name String
 }

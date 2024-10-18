@@ -19,5 +19,6 @@ test.describe('Auth', () => {
 
     const dashboardTitle = await page.title();
     expect(dashboardTitle).toContain('Dashboard');
+    
   });
 });
